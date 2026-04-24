@@ -90,5 +90,24 @@ th { background: #fcfcfc; color: #666; }
     font-size: 0.75rem;
     font-weight: bold;
 }
+
+.content_imagen {
+    height: 180px;
+    width: 180px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e0e6ff;
+    border-radius: 10px;
+}
+
+.imagen {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
 .atendido { background: #e6fcf5; color: #0ca678; }
 .pendiente { background: #fff9db; color: #f08c00; }
