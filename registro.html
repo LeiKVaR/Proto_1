@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Visita</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="container">
+        <a href="admin.html" class="btn-admin">Panel Administrador</a>
+        
+        <div class="card">
+            <h2 style="text-align: left;">📋 Registrar Visita</h2>
+            
+            <form id="formVisita">
+                <div class="form-group">
+                    <label for="codigo">Código de Estudiante</label>
+                    <input type="text" id="codigo" placeholder="Ej: 2024001" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" placeholder="Apellidos" required>
+                </div>
+                <div class="form-group">
+                    <label for="motivo">Motivo de Visita</label>
+                    <textarea id="motivo" rows="3" placeholder="Describe el motivo de tu visita" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Registrar Visita</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('formVisita');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Evita que la página se recargue
+
+            // Capturar valores usando los IDs (más eficiente)
+            const nuevaVisita = {
+                codigo: document.getElementById('codigo').value.trim(),
+                nombre: document.getElementById('nombre').value.trim(),
+                apellidos: document.getElementById('apellidos').value.trim(),
+                motivo: document.getElementById('motivo').value.trim(),
+                fecha: new Date().toLocaleString('es-ES', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric', 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                }),
+                estado: 'Pendiente'
+            };
+
+            try {
+                // 1. Obtener lo que ya existe
+                const datosEnStorage = localStorage.getItem('misVisitas');
+                const visitasActuales = datosEnStorage ? JSON.parse(datosEnStorage) : [];
+                
+                // 2. Agregar el nuevo registro
+                visitasActuales.push(nuevaVisita);
+
+                // 3. Guardar el array actualizado
+                localStorage.setItem('misVisitas', JSON.stringify(visitasActuales));
+
+                // 4. Feedback y Redirección
+                alert('✅ Registro guardado con éxito');
+                window.location.href = 'admin.html';
+                
+            } catch (error) {
+                console.error("Error al guardar en LocalStorage:", error);
+                alert('❌ Hubo un error al guardar los datos.');
+            }
+        });
+    </script>
+</body>
+</html>
